@@ -45,7 +45,10 @@ public class GUI extends JFrame {
             String input = TF_Input.getText();
 
             input = Functions.format(input);
-            Functions.parse(input);
+            TF_Input.setText(input);
+            input = Functions.replaceNumbers(input);
+
+            int status = Functions.parse(input);
         });
     }
 }

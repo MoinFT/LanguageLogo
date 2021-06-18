@@ -5,18 +5,50 @@ public class Functions {
         StringBuilder output = new StringBuilder();
         input = input.toUpperCase();
 
-        for (int i = 0; i < input.length(); i++){
-            switch (input.charAt(i)){
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                case 9:
+        for (int i = 0; i < input.length(); i++) {
+            switch (input.charAt(i)) {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                case 'H':
+                case 'R':
+                case 'W':
+                case 'V':
+                case 'D':
+                case '{':
+                case '}':
+                case ';':
+                    output.append(input.charAt(i));
+                    break;
+            }
+        }
+
+        return output.toString();
+    }
+
+    public static String replaceNumbers(String input) {
+        StringBuilder output = new StringBuilder();
+        input = input.toUpperCase();
+
+        for (int i = 0; i < input.length(); i++) {
+            switch (input.charAt(i)) {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
                     output.append("1");
                     break;
                 case 'H':
@@ -35,7 +67,7 @@ public class Functions {
         return output.toString();
     }
 
-    public static void parse(String input) {
+    public static int parse(String input) {
         int status = 0;
         char c;
 
@@ -44,7 +76,7 @@ public class Functions {
             if (input.length() > 1) {
                 input = input.substring(1);
             } else {
-
+                input = "";
             }
 
             switch (status) {
@@ -243,5 +275,7 @@ public class Functions {
                     break;
             }
         }
+
+        return status;
     }
 }
