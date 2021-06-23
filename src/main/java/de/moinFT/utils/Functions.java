@@ -51,14 +51,7 @@ public class Functions {
                 case '9':
                     output.append("1");
                     break;
-                case 'H':
-                case 'R':
-                case 'W':
-                case 'V':
-                case 'D':
-                case '{':
-                case '}':
-                case ';':
+                default:
                     output.append(input.charAt(i));
                     break;
             }
@@ -94,7 +87,7 @@ public class Functions {
                             status = 5;
                             break;
                         default:
-                            status = 99;
+                            status = 101;
                             break;
                     }
                     break;

@@ -5,6 +5,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class GUIComponent {
+    private final static Font font = new Font("Courier New", Font.PLAIN, 14);
+
     public static JPanel JPanel() {
         JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -18,6 +20,7 @@ public class GUIComponent {
         JTextField TField = new JTextField();
         TField.setBackground(GUIColor.Background_TField_Color);
         TField.setForeground(GUIColor.Font_TField_Color);
+        TField.setFont(font);
         TField.setBorder(null);
         contentPane.add(TField);
 
