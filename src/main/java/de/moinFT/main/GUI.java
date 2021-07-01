@@ -7,6 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GUI extends JFrame {
+    public static boolean init = false;
+    public static double X = 0;
+    public static double Y = 0;
+    public static double Angle = 0;
+    public static boolean pencilDraw = false;
+
     public GUI() {
         this.setTitle("Logo");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,12 +54,51 @@ public class GUI extends JFrame {
             TF_Input.setText(input);
             String inputNumbers = Functions.replaceNumbers(input);
 
-            int status = Functions.parse(inputNumbers);
+            int[] ArrReturn = Functions.parse(inputNumbers);
 
-            if (status == 2 || status == 10){
+            int status = ArrReturn[0];
+            int space = ArrReturn[1];
 
+            if (status == 90) {
+                Draw.draw(DrawPanel, TF_Input.getText());
+
+                TF_Output.setText("");
             } else {
-                //TODO Error Message
+                String ErrorMessage = "Unerwarteter Fehler!";
+
+                switch (status){
+                    case 101:
+                        ErrorMessage = "Hier ist keine Zahl erlaubt!";
+                        break;
+                    case 102:
+                        ErrorMessage = "Hier ist keine Klammer erlaubt!";
+                        break;
+                    case 103:
+                        ErrorMessage = "Hier ist kein Semikolon erlaubt!";
+                        break;
+                    case 104:
+                        ErrorMessage = "Semikolon erwartet!";
+                        break;
+                    case 105:
+                        ErrorMessage = "Ziffer erwartet!";
+                        break;
+                    case 106:
+                        ErrorMessage = "Ziffer oder Semikolon erwartet!";
+                        break;
+                    case 107:
+                        ErrorMessage = "Ziffer oder öffnende Klammer erwartet!";
+                        break;
+                    case 108:
+                        ErrorMessage = "Keine geschatelten Schleifen erlaubt!";
+                        break;
+                    case 109:
+                        ErrorMessage = "Schließende Klammer erwartet!";
+                        break;
+                }
+
+                ErrorMessage = "^ " + ErrorMessage;
+
+                TF_Output.setText(" ".repeat(space) + ErrorMessage);
             }
         });
     }

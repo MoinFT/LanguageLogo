@@ -57,11 +57,14 @@ public class Functions {
             }
         }
 
+        output.append("#");
+
         return output.toString();
     }
 
-    public static int parse(String input) {
+    public static int[] parse(String input) {
         int status = 0;
+        int space = 0;
         char c;
 
         while (input.length() > 0) {
@@ -86,8 +89,18 @@ public class Functions {
                         case 'W':
                             status = 5;
                             break;
-                        default:
+                        case '1':
                             status = 101;
+                            break;
+                        case '{':
+                        case '}':
+                            status = 102;
+                            break;
+                        case ';':
+                            status = 103;
+                            break;
+                        default:
+                            status = 99;
                             break;
                     }
                     break;
@@ -97,7 +110,7 @@ public class Functions {
                             status = 2;
                             break;
                         default:
-                            status = 99;
+                            status = 104;
                             break;
                     }
                     break;
@@ -114,6 +127,19 @@ public class Functions {
                         case 'W':
                             status = 5;
                             break;
+                        case '1':
+                            status = 101;
+                            break;
+                        case '{':
+                        case '}':
+                            status = 102;
+                            break;
+                        case ';':
+                            status = 103;
+                            break;
+                        case '#':
+                            status = 90;
+                            break;
                         default:
                             status = 99;
                             break;
@@ -125,7 +151,7 @@ public class Functions {
                             status = 4;
                             break;
                         default:
-                            status = 99;
+                            status = 105;
                             break;
                     }
                     break;
@@ -138,7 +164,7 @@ public class Functions {
                             status = 2;
                             break;
                         default:
-                            status = 99;
+                            status = 106;
                             break;
                     }
                     break;
@@ -148,7 +174,7 @@ public class Functions {
                             status = 6;
                             break;
                         default:
-                            status = 99;
+                            status = 105;
                             break;
                     }
                     break;
@@ -161,7 +187,7 @@ public class Functions {
                             status = 7;
                             break;
                         default:
-                            status = 99;
+                            status = 107;
                             break;
                     }
                     break;
@@ -175,6 +201,19 @@ public class Functions {
                         case 'D':
                             status = 11;
                             break;
+                        case 'W':
+                            status = 108;
+                            break;
+                        case '1':
+                            status = 101;
+                            break;
+                        case '{':
+                        case '}':
+                            status = 102;
+                            break;
+                        case ';':
+                            status = 103;
+                            break;
                         default:
                             status = 99;
                             break;
@@ -186,7 +225,7 @@ public class Functions {
                             status = 9;
                             break;
                         default:
-                            status = 99;
+                            status = 104;
                             break;
                     }
                     break;
@@ -202,6 +241,14 @@ public class Functions {
                             break;
                         case '}':
                             status = 10;
+                            break;
+                        case 'W':
+                            status = 108;
+                            break;
+                        case '1':
+                        case '{':
+                        case ';':
+                            status = 109;
                             break;
                         default:
                             status = 99;
@@ -221,6 +268,19 @@ public class Functions {
                         case 'W':
                             status = 5;
                             break;
+                        case '1':
+                            status = 101;
+                            break;
+                        case '{':
+                        case '}':
+                            status = 102;
+                            break;
+                        case ';':
+                            status = 103;
+                            break;
+                        case '#':
+                            status = 90;
+                            break;
                         default:
                             status = 99;
                             break;
@@ -232,7 +292,7 @@ public class Functions {
                             status = 12;
                             break;
                         default:
-                            status = 99;
+                            status = 105;
                             break;
                     }
                     break;
@@ -245,7 +305,7 @@ public class Functions {
                             status = 13;
                             break;
                         default:
-                            status = 99;
+                            status = 106;
                             break;
                     }
                     break;
@@ -262,13 +322,26 @@ public class Functions {
                         case '}':
                             status = 10;
                             break;
+                        case 'W':
+                            status = 108;
+                            break;
+                        case '1':
+                        case '{':
+                        case ';':
+                            status = 109;
+                            break;
                         default:
                             status = 99;
+                            break;
                     }
                     break;
             }
+
+            if (status < 99){
+                space++;
+            }
         }
 
-        return status;
+        return new int[]{status, space};
     }
 }
