@@ -43,9 +43,22 @@ public class GUI extends JFrame {
 
         JButton Btn_Calculate = GUIComponent.Button(contentPane);
         Btn_Calculate.setText("Start");
-        Btn_Calculate.setBounds(10, 390, 500, 25);
+        Btn_Calculate.setBounds(265, 390, 245, 25);
+
+        JButton Btn_Clear = GUIComponent.Button(contentPane);
+        Btn_Clear.setText("Loeschen");
+        Btn_Clear.setBounds(10, 390, 245, 25);
 
         this.setVisible(true);
+
+        Btn_Clear.addActionListener(event -> {
+            Graphics g = DrawPanel.getGraphics();
+            g.setColor(Color.white);
+            g.fillRect(0,0,DrawPanel.getWidth(),DrawPanel.getHeight());
+            g.setColor(Color.black);
+
+            TF_Output.setText("Kein Backup? Kein Mitleid!");
+        });
 
         Btn_Calculate.addActionListener(event -> {
             String input = TF_Input.getText();
