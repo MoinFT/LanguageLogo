@@ -8,10 +8,31 @@ public class Draw {
         Graphics g = DrawPanel.getGraphics();
         g.setColor(Color.black);
 
+        int[] xTurtle_Temp = new int[4];
+        int[] yTurtle_Temp = new int[4];
+
         if (!GUI.init) {
             GUI.X = DrawPanel.getWidth() / 2;
             GUI.Y = DrawPanel.getHeight() / 2;
             GUI.init = true;
+
+            GUI.X_Turtle[0] = GUI.X;
+            GUI.X_Turtle[1] = GUI.X + 8;
+            GUI.X_Turtle[2] = GUI.X;
+            GUI.X_Turtle[3] = GUI.X - 8;
+
+            GUI.Y_Turtle[0] = GUI.Y;
+            GUI.Y_Turtle[1] = GUI.Y + 8;
+            GUI.Y_Turtle[2] = GUI.Y - 16;
+            GUI.Y_Turtle[3] = GUI.Y + 8;
+
+            for (int i = 0; i < 4; i++) {
+                xTurtle_Temp[i] = (int) GUI.X_Turtle[i];
+                yTurtle_Temp[i] = (int) GUI.Y_Turtle[i];
+            }
+            g.setColor(Color.red);
+            g.setPaintMode();
+            g.fillPolygon(xTurtle_Temp, yTurtle_Temp, 4);
         }
 
         char c;
@@ -49,11 +70,45 @@ public class Draw {
                     double YTemp = distance * Math.cos(Math.toRadians(GUI.Angle));
 
                     if (GUI.pencilDraw) {
-                        g.drawLine((int) GUI.X, (int) GUI.Y, (int) (GUI.X + XTemp), (int) (GUI.Y - YTemp));
-                    }
+                        for (int i = 0; i < 4; i++) {
+                            xTurtle_Temp[i] = (int) GUI.X_Turtle[i];
+                            yTurtle_Temp[i] = (int) GUI.Y_Turtle[i];
+                        }
+                        //Remove turtle at the actual position
+                        g.setXORMode(Color.white);
+                        g.setColor(Color.red);
+                        g.fillPolygon(xTurtle_Temp, yTurtle_Temp, 4);
 
-                    GUI.X = GUI.X + XTemp;
-                    GUI.Y = GUI.Y - YTemp;
+                        //Draw line
+                        g.setPaintMode();
+                        g.setColor(Color.black);
+                        g.drawLine((int) GUI.X, (int) GUI.Y, (int) (GUI.X + XTemp), (int) (GUI.Y - YTemp));
+
+                        GUI.X = GUI.X + XTemp;
+                        GUI.Y = GUI.Y - YTemp;
+
+                        //Draw turtle at new position
+                        GUI.X_Turtle[0] = GUI.X;
+                        GUI.X_Turtle[1] = GUI.X + Math.sqrt(128) * Math.cos(Math.toRadians(45 - GUI.Angle));
+                        GUI.X_Turtle[2] = GUI.X + 16 * Math.sin(Math.toRadians(GUI.Angle));
+                        GUI.X_Turtle[3] = GUI.X - Math.sqrt(128) * Math.sin(Math.toRadians(45 - GUI.Angle));
+
+                        GUI.Y_Turtle[0] = GUI.Y;
+                        GUI.Y_Turtle[1] = GUI.Y + Math.sqrt(128) * Math.sin(Math.toRadians(45 - GUI.Angle));
+                        GUI.Y_Turtle[2] = GUI.Y - 16 * Math.cos(Math.toRadians(GUI.Angle));
+                        GUI.Y_Turtle[3] = GUI.Y + Math.sqrt(128) * Math.cos(Math.toRadians(45 - GUI.Angle));
+
+                        g.setXORMode(Color.red);
+                        g.setColor(Color.red);
+                        for (int i = 0; i < 4; i++) {
+                            xTurtle_Temp[i] = (int) GUI.X_Turtle[i];
+                            yTurtle_Temp[i] = (int) GUI.Y_Turtle[i];
+                        }
+                        g.fillPolygon(xTurtle_Temp, yTurtle_Temp, 4);
+                    } else {
+                        GUI.X = GUI.X + XTemp;
+                        GUI.Y = GUI.Y - YTemp;
+                    }
                     break;
                 case 'D':
                     StrNumber = new StringBuilder();
@@ -67,10 +122,10 @@ public class Draw {
                         }
                     }
                     GUI.Angle = GUI.Angle - Double.parseDouble(StrNumber.toString());
-                    while (GUI.Angle > 360){
+                    while (GUI.Angle > 360) {
                         GUI.Angle = GUI.Angle - 360;
                     }
-                    while (GUI.Angle < 0){
+                    while (GUI.Angle < 0) {
                         GUI.Angle = GUI.Angle + 360;
                     }
                     break;
@@ -96,7 +151,7 @@ public class Draw {
                         }
                     }
 
-                    for (int i = 0; i < Integer.parseInt(StrNumber.toString()); i++){
+                    for (int i = 0; i < Integer.parseInt(StrNumber.toString()); i++) {
                         draw(DrawPanel, StrTemp.toString());
                     }
                     break;

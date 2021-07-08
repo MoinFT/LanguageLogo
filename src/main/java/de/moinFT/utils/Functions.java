@@ -337,7 +337,7 @@ public class Functions {
                     break;
             }
 
-            if (status < 99){
+            if (status < 99) {
                 space++;
             }
         }

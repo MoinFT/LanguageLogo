@@ -13,6 +13,9 @@ public class GUI extends JFrame {
     public static double Angle = 0;
     public static boolean pencilDraw = false;
 
+    public static double[] X_Turtle = new double[4];
+    public static double[] Y_Turtle = new double[4];
+
     public GUI() {
         this.setTitle("Logo");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,7 +57,7 @@ public class GUI extends JFrame {
         Btn_Clear.addActionListener(event -> {
             Graphics g = DrawPanel.getGraphics();
             g.setColor(Color.white);
-            g.fillRect(0,0,DrawPanel.getWidth(),DrawPanel.getHeight());
+            g.fillRect(0, 0, DrawPanel.getWidth(), DrawPanel.getHeight());
             g.setColor(Color.black);
 
             TF_Output.setText("Kein Backup? Kein Mitleid!");
@@ -79,7 +82,7 @@ public class GUI extends JFrame {
             } else {
                 String ErrorMessage = "Unerwarteter Fehler!";
 
-                switch (status){
+                switch (status) {
                     case 101:
                         ErrorMessage = "Hier ist keine Zahl erlaubt!";
                         break;
